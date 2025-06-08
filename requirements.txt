@@ -1,0 +1,14 @@
+User-
+	-Register 
+		-Name
+		-email
+		-phone no
+Group-
+	-Create
+		-Name
+		-members
+Features - 
+	-send a message
+	-Receive a message
+	-Join a group
+	-remove from group
