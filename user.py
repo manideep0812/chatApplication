@@ -1,7 +1,8 @@
 from generateID import generateID
-from message import message
+from enum_1 import messageStatus
 
 class User:
+    groups=set()
     def __init__(self, name, phone):
         self.name = name
         self.userId = generateID()
@@ -23,10 +24,13 @@ class User:
     def isAvailable(self):
         return self.isonline
     
+    def updateGroups(self,group):
+        User.groups.add(group.getGroupName())
+    
+    def getGroups(self):
+        return User.groups
+    
     def receiveMessage(self,message):
-        print(message.sender.name,message.getContent(),self.name)
-
-user1=User("mani",9849)
-user2=User("raju",7412)
-message1=message(user2,user1,"hi")
-user1.receiveMessage(message1)
+        message.messageStatus=messageStatus.SENT
+        print(message.sender.name + ' sent '+ message.getContent() + " to "+self.name)
+        message.messageStatus=messageStatus.SEEN

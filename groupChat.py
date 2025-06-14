@@ -3,11 +3,12 @@ from message import message
 from user import User
 
 class GroupChat:
-    def __init__(self,name,admin):
+    def __init__(self,name:str,admin:User):
         self.groupName = name
         self.groupId = generateID()
         self.admin = admin
         self.members = set()
+        self.members.add(self.admin) #adding admin to group
 
     def getGroupId(self):
         return self.groupId
@@ -15,22 +16,28 @@ class GroupChat:
     def getGroupName(self):
         return self.groupName
     
-    def addMember(self,requestedBy,user):
+    def addMember(self,requestedBy:User,user:User):
         if requestedBy.getUserId() != self.admin.getUserId():
             print("only admin has this priviligue")
         else:
             self.members.add(user)
+            user.groups.add(self.groupName)
 
-    def removeMember(self,requestedBy,user):
+    def removeMember(self,requestedBy:User,user:User):
         if requestedBy.getUserId() != self.admin.getUserId():
             print("only admin has this priviligue")
         else:
             self.members.remove(user)
+            user.groups.remove(self.groupName)
 
     def getMembers(self):
-        return self.members
+        members = []
+        for i in self.members:
+            members.append(i.getUsername())
+        return members
     
-    def broadcastMessage(self,content):
+    def broadcastMessage(self,message:message):
         for user in self.members:
-            user.receiveMessage(message(self.admin,user,content))
+            if(user.getUserId() != self.admin.getUserId()):
+                user.receiveMessage(message)
 
