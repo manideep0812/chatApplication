@@ -1,9 +1,10 @@
 from enum_1 import messageStatus
 from generateID import generateID
+from messageDecorator import ImessageDecorator
 from user import User
 
 
-class message:
+class message(ImessageDecorator):
     def __init__(self,sender:User,receiver,content:str):
         self.sender = sender
         self.receiver = receiver
