@@ -2,6 +2,7 @@ from abc import ABC, abstractmethod
 from dataclasses import dataclass
 from os import read
 
+#decorator pattern
 class ImessageDecorator(ABC):
     @abstractmethod
     def getContent(self)->str:

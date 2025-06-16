@@ -1,5 +1,6 @@
 from generateID import generateID
 from enum_1 import messageStatus
+from onlineStatus import OnlineStatusChange
 
 class User:
     groups=set()
@@ -17,9 +18,14 @@ class User:
 
     def goOffline(self):
         self.isonline = False
+        notify = OnlineStatusChange()
+        notify.notifyUsers(self)
+
 
     def goOnline(self):
         self.isonline = True
+        notify = OnlineStatusChange()
+        notify.notifyUsers(self)
     
     def isAvailable(self):
         return self.isonline
@@ -34,3 +40,6 @@ class User:
         message.messageStatus=messageStatus.SENT
         print(message.sender.name + ' sent '+ message.getContent() + " to "+self.name)
         message.messageStatus=messageStatus.SEEN
+
+    def getStatusNotification(self,notification):
+        print(notification)

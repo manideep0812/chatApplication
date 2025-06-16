@@ -38,6 +38,6 @@ class GroupChat:
     
     def broadcastMessage(self,message:message):
         for user in self.members:
-            if(user.getUserId() != self.admin.getUserId()):
+            if(user.getUserId() != message.sender.getUserId()):
                 user.receiveMessage(message)
 
